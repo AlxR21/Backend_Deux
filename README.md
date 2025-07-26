@@ -60,10 +60,3 @@ To help juniors (2nd-year CSE students) understand:
 - Willingness to learn 💡
 
 ---
-
-## 🚀 How to Use This Repo
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/backend-teaching-project.git
-   cd backend-teaching-project
