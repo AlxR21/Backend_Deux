@@ -1,7 +1,12 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv'
+import { DB_Name } from './constants.js';
+import connectDB from './db/index.js';
 
-dotenv.config();
+dotenv.config({
+    path: './env'
+});
 
 // console.log("Hey!");
 
@@ -9,6 +14,34 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+
+//We can write Connection function in the index.js but that makes the codebase bloated hence we export the required functions from other files e.g connectDB() from db/index.js we'll do the same for Routes
+// ( async () => {
+//     try{
+//          const mongoInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_Name}`)
+//         console.log("Connected with MongoDB. Database Hosted: " + mongoInstance.connection.host)
+//         app.on("error", (error) => {
+//             console.log("Error: ", error);
+//             throw error;
+//         })
+
+//         app.listen(PORT, () => {
+//     console.log("Server is running on: " + PORT);
+// })
+//     } catch(error){
+//         console.error("ERROR: ", error)
+//         throw error;
+//     }
+// })()
+
+connectDB()
+.then(() => {
+    console.log("MongoDB Connected.")
+})
+.catch(err => console.error("MongoDB connection failed."))
+app.listen(PORT, () => {
+    console.log("Server is running on: " + PORT);
+})
 
 app.get('/', (req, res) => {
     console.log("hey!");
@@ -33,6 +66,3 @@ app.delete('/users/:id', (req, res) => {
 
 
 
-app.listen(PORT, () => {
-    console.log("Server is running on: " + PORT);
-})
