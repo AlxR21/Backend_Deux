@@ -2,10 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import { DB_Name } from './constants.js';
+import  Book  from './models/book.models.js';
 import connectDB from './db/index.js';
+import bookRoutes from './routes/books.routes.js'
 
 dotenv.config({
-    path: './env'
 });
 
 // console.log("Hey!");
@@ -43,6 +44,8 @@ app.listen(PORT, () => {
     console.log("Server is running on: " + PORT);
 })
 
+app.use('/books', bookRoutes);
+
 app.get('/', (req, res) => {
     console.log("hey!");
     res.send('Hello from the server.');
@@ -63,6 +66,4 @@ app.delete('/users/:id', (req, res) => {
     const {id} = req.params;
     res.send(`DELETE: User ${id} removed`);
 })
-
-
 

@@ -4,7 +4,12 @@ import { DB_Name } from "../constants.js";
 const connectDB = async () => {
     try{
 
-        const mongoInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_Name}`)
+        const mongoInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_Name}`,
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            }
+        )
         console.log("Connected with MongoDB. Database Hosted: " + mongoInstance.connection.host)
 
     } catch (error){
